@@ -6,18 +6,24 @@
 
 /*used to hide elements on a page */
 .peekaboo{ display: none;}
+
+/* Set lightblue background color and 100% height */
+.bluebar {
+      background-color: lightblue;
+      height: 100%;
+    }
 	
+    /* Set gray background color and 100% height */
+.graybar {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
 	
 /* -----------   Bootstrap Template Styles -------------------------- */
 
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
 .row.content {height: 500px}
-    
-/* Set gray background color and 100% height */
-.sidenav {
-      background-color: #f1f1f1;
-      height: 100%;
-    }
     
     
 /* Set black background color, white text and some padding */
