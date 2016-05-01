@@ -1,16 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>CS313 Hello My World</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-    	<div class="container">
-            Hello This is My World
+<head>
+  <title>CS313 Homepage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  
+  <script src="js/main.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+
+  
+</head>
+<body>
+    <div class="container-fluid">
+      <h1>CS 313 Homepage</h1>
+      <div class="row content">
+        <div class="col-sm-3 sidenav">
+          <h4>Assignment Links</h4>
+          <ul class="nav nav-pills nav-stacked">
+            <li class="active" onmouseover="mouseOver('a-one','done')" onmouseout="mouseOut('a-one')"><a href="info.html">Assignment 1</a></li>
+            <li onmouseover="mouseOver('a-two','not-done')" onmouseout="mouseOut('a-two')"><a href="comingsoon.html">Assignment 2</a></li>
+            <li onmouseover="mouseOver('a-three','not-done')" onmouseout="mouseOut('a-three')"><a href="comingsoon.html">Assignment 3</a></li>
+          </ul><br>
         </div>
-    </body>
+
+        <div class="col-sm-9">
+          <h4><small>Assignment Information</small></h4>
+          <hr>
+          <h5 id='status' class='peekaboo'>Status: 
+              <span id='not-done' class="peekaboo label label-danger">Not Done</span> 
+              <span id='done' class="peekaboo label label-success">Completed</span>
+          </h5>
+          
+          <div id="a-one" class="peekaboo">
+          <h5>Title: Assignment 1 - Personal Info Page</h5>
+          <h5>Date: Week 1</h5>
+          <br>
+          <h5>Objective:</h5>
+            <p>The purpose of this assignment is to review a minimal level of client-side programming and 
+                provide a homepage from which you can link to future assignments.</p>
+
+            <h5>Description:</h5>
+            <p>Should have a professional look and feel. Please write the HTML for this page from scratch. 
+            You are, however, welcome to use jQuery, or Bootstrap, etc.  Put all styles in an external 
+            stylesheet. (No inline styles.) Have at least two pages: one as an introduction to yourself 
+            and one that will have links to assignments.  Have at least one image as well as something 
+            dynamic (e.g., mouse-overs, menus, on-click, on-change, etc.) Include reasonable colors, 
+            images, etc. to show your creativity and personality.  Finally have no run-time errors.</p>
+            <br>
+            <p>Click Assignment 1 to go to the Personal Info Page</p>
+          </div>
+          
+          
+          <div id="a-two" class="peekaboo">
+          <h5>Title: Assignment 2</h5>
+          <h5>Date: Week ?</h5>
+          <br>
+          <h5>Objective:</h5>
+            <p>Watch this space for more information when it is available</p>
+          </div>
+          
+          
+          <div id="a-three" class="peekaboo">
+          <h5>Title: Assignment 3</h5>
+          <h5>Date: Week ?</h5>
+          <br>
+          <h5>Objective:</h5>
+            <p>Watch this space for more information when it is available</p>
+          </div>
+      </div>
+          
+          
+      </div>
+    </div>
+
+
+<footer class="container-fluid">
+  <p class='small'>Last Updated: April 24th 2016</p>
+</footer>
+
+</body>
 </html>
