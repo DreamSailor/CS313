@@ -11,6 +11,7 @@
 .bluebar {
       background-color: lightblue;
       height: 100%;
+      padding: 15px;
     }
 	
     /* Set gray background color and 100% height */

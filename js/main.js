@@ -9,13 +9,15 @@ function mouseOver(sAssign,sStatus)
 {
     getStatus(sStatus);
     document.getElementById(sAssign).style.display = 'inline';
+    document.getElementById('a-none').style.display = 'none';
 }
 
 function mouseOut(sAssign) 
 {
-
-    document.getElementById(sAssign).style.display = 'none';
     clearStatus();
+    document.getElementById(sAssign).style.display = 'none';
+    document.getElementById('a-none').style.display = 'inline';
+    
 }
 
 function clearStatus(sStatus)
@@ -38,5 +40,5 @@ function getStatus(sStatus)
     {
         document.getElementById(sStatus).style.display = 'inline';
     }
-
+    
 }
