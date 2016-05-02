@@ -16,7 +16,7 @@ function mouseOut(sAssign)
 {
     clearStatus();
     document.getElementById(sAssign).style.display = 'none';
-    document.getElementById('a-none').style.display = 'inline';
+    //document.getElementById('a-none').style.display = 'inline';
     
 }
 
