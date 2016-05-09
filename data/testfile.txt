@@ -1,0 +1,24 @@
+@What is your Favorite Color?~
+Red:4;
+Blue:4;
+Green:5;
+Yellow:5;
+Orange:6;
+White:3;
+Black:4;#
+@What is your Favorite Season?~
+Spring:15;
+Summer:13;
+Autumn:8;
+Winter:3;#
+@Which of the Seven wonders of the "new" world you have visited?~
+Great Wall of China:16;
+Taj Mahal:19;
+The Colosseum:10;
+Chichen Itza:19;
+Machu Picchu:19;
+Christ the Redeemer:10;
+Petra:7;#
+@Did you enjoy this survey~
+Yes:25;
+No:14;

@@ -4,6 +4,19 @@
  *  Boostrap template styles used as well and marked
  */
 
+  /* -----------   Survey Template Styles -------------------------- */  
+  
+  .search {
+    border: 1px dotted #999;;
+    padding: 5px;
+    margin: 10px;
+    background-color: lightblue;
+    border-radius: 10;
+
+    -webkit-appearance: none;
+  }
+     
+
 /*used to hide elements on a page */
 .peekaboo{ display: none;}
 
@@ -20,7 +33,9 @@
       height: 100%;
     }
     
-	
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+.survey.content {height: 1500px}
+
 /* -----------   Bootstrap Template Styles -------------------------- */
 
 /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
@@ -42,5 +57,7 @@ footer {
       }
       .row.content {height: auto;} 
     }
+
+     
 
   
