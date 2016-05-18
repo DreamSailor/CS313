@@ -34,7 +34,7 @@
           //echo "Using openshift credentials: ";
 
           $servername = getenv('OPENSHIFT_MYSQL_DB_HOST');
-          $servername += ":".getenv('OPENSHIFT_MYSQL_DB_PORT'); 
+          $portname = getenv('OPENSHIFT_MYSQL_DB_PORT'); 
           $username = getenv('OPENSHIFT_MYSQL_DB_USERNAME');
           $password = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');
           $dbname = "php";
@@ -42,6 +42,7 @@
      } 
 
      echo $servername;
+     echo $portname;
      echo $username;
      echo $password;
      echo $dbname;
