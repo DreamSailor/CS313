@@ -37,9 +37,9 @@
           $portname = getenv('OPENSHIFT_MYSQL_DB_PORT'); 
           $username = getenv('OPENSHIFT_MYSQL_DB_USERNAME');
           $password = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');
-          $dbname = "php";
+          $dbname = "scriptures";
           
-          $servername = $servername . ":" .$portname;
+          //$servername = $servername . ":" .$portname;
           
      } 
 
