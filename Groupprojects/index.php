@@ -39,10 +39,12 @@
           $password = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');
           $dbname = "php";
           
+          $servername = $servername . ":" .$portname;
+          
      } 
 
      echo $servername;
-     echo $portname;
+     //echo $portname;
      echo $username;
      echo $password;
      echo $dbname;
