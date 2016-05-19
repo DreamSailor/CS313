@@ -1,13 +1,8 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**************************************
  * 
- *  File: Survey_index.php
+ *  File: index.php
  *  Created by: jsimpson
  *  Date: May 16, 2016 8:52:37 PM
  *  Description:
@@ -27,48 +22,33 @@ try
 
 echo "SCRIPTURE RESOURCES<br>";
 
-// ***** useing MySQLi Format
-// 
-//// Check connection and report error or success
-//if ($db->connect_error) {
-//    die("Connection failed: " . $db->connect_error);
-//} 
-//else
-//    echo "SCRIPTURE RESOURCES<br>";
-
-//
-//$sql = "SELECT id, book, chapter, verse, context FROM scriptures";
-//$result = $db->query($sql);
-//
-//if ($result->num_rows > 0) {
-//    // output data of each row
-//    while($row = $result->fetch_assoc()) {
-//        echo "<b>" . $row["book"]. " " . $row["chapter"]. ":" . $row["verse"]. "</b> - ". $row["context"]."<br>";
-//    }
-//} else {
-//    echo "0 results";
-//}
-//$db->close();
-
-// ***** Using PDO format
-
+//Get sected radio button
 $dbcolumn =  $_POST['book'];
 
-
+//Check if Radio button was selected or "All" was chosen
 if($dbcolumn == "All" || $dbcolumn == NULL)
     $statement = $db->query("SELECT id, book, chapter, verse, context FROM scriptures");
 else
-    $statement = $db->query("SELECT id, book, chapter, verse, context FROM scriptures where book = " . $db->quote($_POST['book']) );
+    $statement = $db->query("SELECT id, book, chapter, verse, context FROM scriptures where book = " . $db->quote($dbcolumn) );  //use ->quote() to wrap "quotes" around variable
 
+//Got get the data from the database
 $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+//Display the results
 foreach ($results as $row)
 {
     echo "<b>" . $row["book"]. " " . $row["chapter"]. ":" . $row["verse"]. "</b> - ". $row["context"]."<br>";
 }
 
-$db = null;
+$db = null;  //Close out the DB
 
+
+/**************************************
+ * 
+ *  Function:  openDB()
+ *  Descript:   Generical Function to open DB local or otherwise
+ * 
+ ****************************************/
 
 function openDB($dbname)
 {
@@ -78,8 +58,6 @@ function openDB($dbname)
     if ($openShiftVar === null || $openShiftVar == "")
     {
         // Not in the openshift environment
-        //echo "Using local credentials: "; 
-        //require("setLocalDatabaseCredentials.php");
         $servername = "localhost";
         $username = "php";
         $password = "php-login";
@@ -88,7 +66,6 @@ function openDB($dbname)
     else 
     { 
         // In the openshift environment
-        //echo "Using openshift credentials: ";
         $servername = getenv('OPENSHIFT_MYSQL_DB_HOST');
         $username = getenv('OPENSHIFT_MYSQL_DB_USERNAME');
         $password = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');        
@@ -96,7 +73,6 @@ function openDB($dbname)
     } 
 
 // Create connection
-//$db = new mysqli($servername, $username, $password, $dbname);
 $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
 return $db;
