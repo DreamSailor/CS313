@@ -32,7 +32,6 @@
 
             <h3>Survey Results</h3>
             <hr>
-
             <div class="col-sm-6 search">
         
                 <?php
