@@ -83,17 +83,16 @@
             }
 
         ?>
-        
         <div class="row">
             <div class="col-sm-1 " ></div>
-            <div class="col-sm-4 bluebar" >
+            <div class="col-sm-4" >
                 <?php
                     if(count($carInfo) == 1)                   
                     {
                         $imageIndex = $carInfo[0]["image_id"];
                         $statement = $db->query("SELECT folderpath, name FROM image WHERE id=$db->quote($imageIndex)"); 
                         $imageInfo = $statement->fetchAll(PDO::FETCH_ASSOC);
-                         echo "<img src='" .$imageInfo[0]["folderpath"] ."/" .$imageInfo[0]["name"] ."'height='225' width='225' /><br>";
+                         echo "<img class='img-thumbnail' src='" .$imageInfo[0]["folderpath"] ."/" .$imageInfo[0]["name"] ."'height='225' width='225' /><br>";
 
                     }
 
