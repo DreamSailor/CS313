@@ -1,5 +1,5 @@
 /* 
- *  Created on : April 30th, 2016, 5:25:54 PM
+ *  Created on : May 21st, 2016, 5:25:54 PM
  *  Author     : jeffry simpson
  *  
  */
@@ -28,6 +28,11 @@ function showCar(str)
         xmlhttp.send();
     }
 }
+ 
+ function comingSoon()
+ {
+     window.confirm("This feature coming soon");
+ }
  
 
 function mouseOver(sAssign,sStatus) 
