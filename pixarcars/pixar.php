@@ -79,9 +79,9 @@
         <div class="row box content">
             <div class="col-sm-1 bluebar">
                 <div>
-                <button type="button" class="btn btn-info btn-block" onclick="javascript:location.href='../index.html'">Home</button>    
-                <button type="button" class="btn btn-info btn-block" onclick="comingSoon()">Add</button>
-                <button type="button" class="btn btn-info btn-block" onclick="comingSoon()">Edit</button>
+                <button type="button" class="btn-sm btn-info btn-block" onclick="javascript:location.href='../index.html'">Home</button>    
+                <button type="button" class="btn-sm btn-info btn-block" onclick="comingSoon()">Add</button>
+                <button type="button" class="btn-sm btn-info btn-block" onclick="comingSoon()">Edit</button>
                 </div>
             </div>
             <div class="col-sm-9 lsidebrd rsidebrd graybar " id="writeMe"></div>
