@@ -34,15 +34,16 @@
             //Open the DB
             $db = OpenDB("pixar_cars");
             
-            $carIndex =  $_GET['cars'];
+            $carIndex =  $_GET['cars'];  //Get Value for dropdown
            
+            //Get infor for selected car from DB
             $statement = $db->query("SELECT id, name,description,date_aquired,"
                     . "primary_version,primary_car_id,race_car,race_number,race_sponsor,"
                     . "image_id FROM cars WHERE id=$db->quote($carIndex)");
             
             $carInfo = $statement->fetchAll(PDO::FETCH_ASSOC);
             
-
+            //makre sure we only got one and display info
             if(count($carInfo) == 1)
             {
                 echo "<b>Car: ". $carInfo[0]["name"] ."</b>"
@@ -56,6 +57,7 @@
                 else
                      echo "<strong>Primary Car:</strong> " ."No<br/>";
 
+                //Check if Car is a race car or not
                 if($carInfo[0]["race_car"]==1)
                 {
                     echo "<div class='row'><strong>\n"
@@ -80,14 +82,14 @@
                 }
                 echo "<br/>";
 
-
             }
-
         ?>
+        
         <div class="row">
             <div class="col-sm-1 " ></div>
             <div class="col-sm-4" >
                 <?php
+                    //  Add image from Image table path
                     if(count($carInfo) == 1)                   
                     {
                         $imageIndex = $carInfo[0]["image_id"];
@@ -101,10 +103,13 @@
                     }
 
                 ?>
+                
             </div>
             <div class="col-sm-1 " > </div>
             <div class="col-sm-3 ">
                 <?php
+                
+                    //Added infor for Friends from Many-to-Many query
                     if(count($carInfo) == 1)                   
                     {
                        echo "<strong>Friends:</strong><br/>";
@@ -127,6 +132,8 @@
             </div>
             <div class="col-sm-3 " >
                 <?php 
+                
+                    //Added infor for Locations from Many-to-Many query
                     if(count($carInfo) == 1)                   
                     {
                         echo "<strong>Locations:</strong><br>";
