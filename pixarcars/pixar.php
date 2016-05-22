@@ -48,10 +48,10 @@
 
             ?>
         
-        <div class="row graybar">
-            <div class="col-sm-1">
+        <div class="row bottombrd graybar">
+            <div class="col-sm-2">
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-4">
                 <form>
                     <select  name="cars" onchange="showCar(this.value)">
                         <option value="">Select a car:</option>
@@ -74,16 +74,17 @@
                 </form>
   
             </div>
-            <div class="col-sm-3"></div>
+            <div class="col-sm-4"></div>
         </div>        
         <div class="row box content">
             <div class="col-sm-1 bluebar">
                 <div>
+                <button type="button" class="btn btn-info btn-block" onclick="javascript:location.href='../index.html'">Home</button>    
                 <button type="button" class="btn btn-info btn-block" onclick="comingSoon()">Add</button>
-                <button type="button" class="btn btn-info btn-block">Edit</button>
+                <button type="button" class="btn btn-info btn-block" onclick="comingSoon()">Edit</button>
                 </div>
             </div>
-            <div class="col-sm-9 graybar " id="writeMe"></div>
+            <div class="col-sm-9 lsidebrd rsidebrd graybar " id="writeMe"></div>
             <div class="col-sm-2 bluebar"></div>
         </div> 
             
@@ -96,9 +97,7 @@
         
       <footer class="row">
 
-            <div class="col-sm-5 small">Last Updated: May 21th 2016</div>
-            <div><a class="col-sm-1 label label-primary text-center" href="../index.html">Home</a></div>
-            <div class="col-sm-6"></div>
+            <div class="col-sm-12 small">Last Updated: May 21th 2016</div>
   
     </footer>  
        </div>

@@ -16,6 +16,11 @@
     -webkit-appearance: none;
   }
  
+    div.bottombrd {border-bottom: 1px solid;}
+    div.lsidebrd {border-left: 1px solid;}
+    div.rsidebrd {border-right: 1px solid;}
+    div.borders {border: 1px solid;}
+  
   .col-centered{
     float: none;
     margin: 0 auto;

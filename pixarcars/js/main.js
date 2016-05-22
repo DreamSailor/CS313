@@ -31,8 +31,9 @@ function showCar(str)
  
  function comingSoon()
  {
-     window.confirm("This feature coming soon");
+     window.alert("This feature coming soon");
  }
+ 
  
 
 function mouseOver(sAssign,sStatus) 
