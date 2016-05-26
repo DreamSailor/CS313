@@ -9,6 +9,31 @@ and open the template in the editor.
         <title>GroupProject 5.5</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            function dsiplaySCripture(str) 
+            {
+                if (str == "") 
+                {
+                    document.getElementById("writeMe").innerHTML = "";
+                    return;
+                } 
+                else 
+                { 
+                    if (window.XMLHttpRequest) 
+                    {
+                        // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp = new XMLHttpRequest();
+                    } 
+                    xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                            document.getElementById("writeMe").innerHTML = xmlhttp.responseText;
+                        }
+                    };
+                    xmlhttp.open("GET","getcarinfo.php?cars="+str,true);
+                    xmlhttp.send();
+                }
+            }
+        </script>
     </head>
     <body>
         <form class="search" id="survey" action="index.php" method="post"  >
@@ -19,5 +44,16 @@ and open the template in the editor.
             <input type="radio" name="book" value="Doctrine and Covenants">Doctrine & Covenants<br/>
             <input type="submit" name="submit" value="Submit">
         </form>
+        <form class="search" id="survey" action="addverse.php" method="post"  >
+            <div>Please Add your Verse:</div>
+            Book:
+            <input type="text" name="book"><br/>
+            Chapter: <input type="text" name="chapter"> 
+            Verse: <input type="text" name="verse"><br/>
+            Content: <textarea rows='4' cols='100' name="context"/>
+            
+            <input type="submit" name="submit" value="Submit">
+        </form>
+        <button type="button" onclick="comingSoon()">Add</button>
     </body>
 </html>
