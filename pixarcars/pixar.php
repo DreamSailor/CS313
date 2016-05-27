@@ -1,19 +1,21 @@
 <?php
     // Start the session
     session_start();
-    include "dbaccess.php";
-?>
-<!DOCTYPE html>
-<!--
-/**************************************
+    include "database.php";
+    include "display.php";
+    
+    /**************************************
  * 
- *  File: dbaccess.php
+ *  File: Pixar.php  Database Assignment
  *  Created by: jsimpson
  *  Date: May 18, 2016 7:01:44 PM
  *  Description:
  * 
  ****************************************/
--->
+    
+?>
+<!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -27,9 +29,7 @@
         <script src="js/main.js"></script>
 
   
-        <title>My Pixar Car Collection</title>
-    
-        
+        <title>My Pixar Car Collection</title>      
     </head>
     <body>
         <div class="container-fluid">
@@ -41,50 +41,24 @@
                 <div class="col-sm-3"></div>
             </div>
         
-            <?php
-
-                //Open the DB
-                 $db = OpenDB("pixar_cars");
-
-            ?>
-        
         <div class="row bottombrd graybar">
             <div class="col-sm-2">
             </div>
-            <div class="col-sm-4">
-                <form>
-                    <select  name="cars" onchange="showCar(this.value)">
-                        <option value="">Select a car:</option>
-
-                        <?php
-                            //Get the list of cars from DB
-                            $statement = $db->query("SELECT id, name,description,image_id FROM cars ORDER BY cars.name ASC");
-                            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-                            foreach ($results as $row)
-                            {
-                                echo "<option value=" .$row["id"] . ">" . $row["name"]. " - " .$row["description"] ."</option>\n";
-                            }
-
-                            
-                            $db = null;  //Close out the DB
-
-                        ?>
-                      </select>
-                </form>
-  
+            <div id="carDropdown" class="col-sm-4">
+             <?php  renderCarList();  ?> 
             </div>
             <div class="col-sm-4"></div>
         </div>        
         <div class="row box content">
             <div class="col-sm-1 bluebar">
                 <div>
-                <button type="button" class="btn-sm btn-info btn-block" onclick="javascript:location.href='../index.html'">Home</button>    
-                <button type="button" class="btn-sm btn-info btn-block" onclick="comingSoon()">Add</button>
-                <button type="button" class="btn-sm btn-info btn-block" onclick="comingSoon()">Edit</button>
+                <button type="button" id="home" class="btn btn-sm btn-info btn-block" onclick="javascript:location.href='../index.html'">Home</button>    
+                <button type="button" id="add" class="btn btn-sm btn-info btn-block" onclick="alterCar('add')">Add</button>
+                <button type="button" id="edit" class="btn btn-sm btn-info btn-block disabled" onclick="alterCar('edit')">Edit</button>
+                <button type="button" id="delete" class="btn btn-sm btn-info btn-block disabled" onclick="deleteCar()">Delete</button>
                 </div>
             </div>
-            <div class="col-sm-9 lsidebrd rsidebrd graybar " id="writeMe"></div>
+            <div class="col-sm-9 lsidebrd rsidebrd graybar " id="displayArea"></div>
             <div class="col-sm-2 bluebar"></div>
         </div> 
             

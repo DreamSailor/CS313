@@ -1,75 +1,116 @@
 /* 
+ *  File:  main.js
  *  Created on : May 21st, 2016, 5:25:54 PM
  *  Author     : jeffry simpson
+ *  Description: Javascript Helper functions
  *  
  */
 
+
+function enableBtns() {
+    
+    if(document.getElementById("edit").classList.contains("disabled"))
+        document.getElementById("edit").classList.remove("disabled");
+    if(document.getElementById("delete").classList.contains("disabled"))
+        document.getElementById("delete").classList.remove("disabled");
+}
+
+function disableBtns() {
+    if(!document.getElementById("edit").classList.contains("disabled"))
+        document.getElementById("edit").classList.add("disabled");
+    if(!document.getElementById("delete").classList.contains("disabled"))
+        document.getElementById("delete").classList.add("disabled");
+}
+
+function XMLRequestor(htmlElement,phpFile,paramString)
+{
+    if (window.XMLHttpRequest) 
+    {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } 
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+        {
+            document.getElementById(htmlElement).innerHTML = xmlhttp.responseText;
+        }
+    };
+    xmlhttp.open("GET",phpFile+"?"+paramString,true);
+    xmlhttp.send();
+    
+}
 
 function showCar(str) 
 {
     if (str == "") 
     {
-        document.getElementById("writeMe").innerHTML = "";
-        return;
+        document.getElementById("displayArea").innerHTML = "";
+        disableBtns();
+
     } 
     else 
     { 
-        if (window.XMLHttpRequest) 
-        {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } 
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById("writeMe").innerHTML = xmlhttp.responseText;
-            }
-        };
-        xmlhttp.open("GET","getcarinfo.php?cars="+str,true);
-        xmlhttp.send();
+        XMLRequestor("displayArea","getcarinfo.php","cars="+str);
+        enableBtns();
     }
 }
+
+function deleteCar() 
+{
+    //Only do something if we aren't disabled
+    if(!document.getElementById('delete').classList.contains("disabled"))  
+    {
+        disableBtns();
+        if(window.confirm("Do you want to delete this car?"))
+        {
+            document.getElementById("displayArea").innerHTML = "";
+            XMLRequestor("carDropdown","altercar.php","op=delete");
+            disableBtns();
+        }
+        else
+        {
+         enableBtns();
+        }
+        
+    }
+    
+}
  
- function comingSoon()
+
+function alterCar(myFunc) 
+{
+    //Only do something if we aren't disabled
+    if(!document.getElementById(myFunc).classList.contains("disabled"))  
+    {
+        disableBtns();
+        document.getElementById("displayArea").innerHTML = "";
+        
+        XMLRequestor("displayArea","altercar.php","op="+myFunc);
+
+//        if (window.XMLHttpRequest) 
+//        {
+//            // code for IE7+, Firefox, Chrome, Opera, Safari
+//            xmlhttp = new XMLHttpRequest();
+//        } 
+//        xmlhttp.onreadystatechange = function() {
+//            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+//            {
+//                document.getElementById("displayArea").innerHTML = xmlhttp.responseText;
+//               
+//            }
+//        };
+//        xmlhttp.open("GET","altercar.php?op="+myFunc,true);
+//        xmlhttp.send();
+
+    }
+    
+}
+
+ function comingSoon(btn)
  {
-     window.alert("This feature coming soon");
+      if(!document.getElementById(btn).classList.contains("disabled"))
+        window.alert("This feature coming soon");
  }
  
- 
 
-function mouseOver(sAssign,sStatus) 
-{
-    getStatus(sStatus);
-    document.getElementById(sAssign).style.display = 'inline';
-    document.getElementById('a-none').style.display = 'none';
-}
 
-function mouseOut(sAssign) 
-{
-    clearStatus();
-    document.getElementById(sAssign).style.display = 'none';
-    //document.getElementById('a-none').style.display = 'inline';
-    
-}
-
-function clearStatus(sStatus)
-{
-    document.getElementById('status').style.display = 'none';
-    document.getElementById('done').style.display = 'none';
-    document.getElementById('not-done').style.display = 'none';
-}
-
-function getStatus(sStatus)
-{
-    document.getElementById('status').style.display = 'inline';
-
-    if(sStatus === 'done')
-    {
-        document.getElementById(sStatus).style.display = 'inline';
-    }
-
-    else if (sStatus === 'not-done')
-    {
-        document.getElementById(sStatus).style.display = 'inline';
-    }
-    
-}

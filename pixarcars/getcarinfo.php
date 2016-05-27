@@ -1,19 +1,21 @@
 <?php
     // Start the session
     session_start();
-    include "dbaccess.php";
-?>
-<!DOCTYPE html>
-<!--
+    include "database.php";
+    
+
 /**************************************
  * 
- *  File: dbaccess.php
+ *  File: GetCarInfo.php
  *  Created by: jsimpson
  *  Date: May 18, 2016 7:01:44 PM
- *  Description:
+ *  Description: FIle to access DB and get information
  * 
  ****************************************/
--->
+
+?>
+<!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -35,6 +37,8 @@
             $db = OpenDB("pixar_cars");
             
             $carIndex =  $_GET['cars'];  //Get Value for dropdown
+            
+                $_SESSION["currRecord"] = $carIndex;
            
             //Get infor for selected car from DB
             $statement = $db->query("SELECT id, name,description,date_aquired,"
@@ -150,10 +154,12 @@
                        }
                     }
                 ?>
-            </div>
                 
+            </div>
+      
         </div>
         
         <?php $db = null;  //Close out the DB ?>       
+        
     </body>
 </html>

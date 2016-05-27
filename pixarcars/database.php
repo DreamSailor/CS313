@@ -2,14 +2,12 @@
 
 /**************************************
  * 
- *  File: dbaccess.php
+ *  File: database.php
  *  Created by: jsimpson
  *  Date: May 18, 2016 7:01:44 PM
- *  Description:
+ *  Description: Database Access and functions
  * 
  ****************************************/
-
-
 
 
 /**************************************
@@ -55,3 +53,13 @@ function openDB($dbname)
 return $db;
 
 }
+
+function deleteDbrecord()
+{
+    
+   
+    
+    
+}
+?>
+
