@@ -26,7 +26,7 @@ function renderCarList()
                 $db = OpenDB("pixar_cars");
 
                 //Get the list of cars from DB
-                $statement = $db->query("SELECT id, name,description,image_id FROM cars ORDER BY cars.name ASC");
+                $statement = $db->query("SELECT id, name,description FROM cars ORDER BY cars.name ASC");
                 $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
                 foreach ($results as $row)

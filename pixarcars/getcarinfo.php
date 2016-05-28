@@ -36,16 +36,16 @@
             //Open the DB
             $db = OpenDB("pixar_cars");
             
-            $carIndex =  $_GET['cars'];  //Get Value for dropdown
-            
-                $_SESSION["currRecord"] = $carIndex;
+            //Get Value from dropdown and then store it in session variable too
+            $carIndex =  $_GET['cars'];            
+            $_SESSION["currRecord"] = $carIndex;
            
-            //Get infor for selected car from DB
-            $statement = $db->query("SELECT id, name,description,date_aquired,"
-                    . "primary_version,primary_car_id,race_car,race_number,race_sponsor,"
-                    . "image_id FROM cars WHERE id=$db->quote($carIndex)");
             
-            $carInfo = $statement->fetchAll(PDO::FETCH_ASSOC);
+            $statement = "SELECT id, name,description,date_aquired,"
+                    . "primary_version,primary_car_id,race_car,race_number,race_sponsor "
+                    . "FROM cars WHERE id=$db->quote($carIndex)";
+            
+            $carInfo = dbRead($db,$statement);
             
             //makre sure we only got one and display info
             if(count($carInfo) == 1)
@@ -96,10 +96,7 @@
                     //  Add image from Image table path
                     if(count($carInfo) == 1)                   
                     {
-                        $imageIndex = $carInfo[0]["image_id"];
-                        $statement = $db->query("SELECT folderpath, name FROM "
-                                . "image WHERE id=$db->quote($imageIndex)"); 
-                        $imageInfo = $statement->fetchAll(PDO::FETCH_ASSOC);
+                        $imageInfo = dbRead($db,"SELECT folderpath, name FROM image WHERE car_id=$db->quote($carIndex)"); 
                          echo "<img class='img-thumbnail' src='" 
                         .$imageInfo[0]["folderpath"] ."/" .$imageInfo[0]["name"] 
                                  ."'height='225' width='225' /><br>";

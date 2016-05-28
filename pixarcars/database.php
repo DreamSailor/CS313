@@ -54,11 +54,59 @@ return $db;
 
 }
 
-function deleteDbrecord()
+function dbRead($db,$sqlQuery)
 {
+    try
+    {
+        //Build PDO statement and fetch it from DB
+        $statement = $db->query($sqlQuery);         
+        $dbInfo =  $statement->fetchAll(PDO::FETCH_ASSOC);
+        
+    } catch (Exception $ex) 
+    {
+        echo "Db Error: " . $ex->getMessage();
+        die();
+    }
+        
     
+    return $dbInfo;
+}
+
+function deleteDbrecord()
+{ 
+    $db = openDB("pixar_cars");
+    $carIndex = $_SESSION["currRecord"];  
+      
+    if(isset($carIndex))
+    {
+       $imageInfo = dbRead($db,"SELECT folderpath, name FROM image WHERE car_id=$carIndex"); 
+       $imageFile = $imageInfo[0]["folderpath"] ."/" .$imageInfo[0]["name"];
+
+       //delete image file
+       if(file_exists ($imageFile ))
+            unlink($imageFile);            
    
+ 
+            //delete DB record
+        try {
+
+            // sql to delete a record
+            $sql = "DELETE FROM cars WHERE id=$carIndex";
+
+            $db->exec($sql);
+
+            }
+        catch(PDOException $e)
+            {
+            echo $sql . "<br>" . $e->getMessage();
+            }  
+        
+    }
+    else
+        echo "Error: No Record to get";
     
+    //close db
+    $db = null;
     
 }
 ?>
