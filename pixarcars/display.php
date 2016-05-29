@@ -12,25 +12,53 @@
 ?>
 
 <?php
-function buildEditForm($fillData)
-{      
+function buildEditForm($op)
+{    
+    setOpSession($op);
+
+    echo "<h5>";
+    if($_GET['op'] == 'add')
+        echo "Add Car</h5>";
+    else
+        echo "Edit Car</h5>";
     ?>
-    <h5>Add Car</h5>
     <form id="addcar" action="altercar.php" method="GET">
-        <input type="hidden" name="op" value="ok" /> 
+        <input type="hidden" name="op" value=<?php echo "$op"; ?> /> 
         Name:
-        <input type="text" name="name">
+        <input type="text" name="name" value="<?php echo sVar('name'); ?>">
         Is this the Primary Car? 
-        <input type="radio" name="primary_car" checked="checked" value="yes">Yes
-        <input type="radio" name="primary_car" value="no">No<br/>
+        <?php
+            if(($_GET['op'] == 'add') || (($_GET['op'] == 'edit') && (sVar("primary_version")== 1)))
+            {
+                echo "<input type='radio' name='primary_car' checked value='yes'>Yes";
+                echo "<input type='radio' name='primary_car'  value='no'>No<br/>";
+            }
+            else  //edit and Not Primary
+            {
+                echo "<input type='radio' name='primary_car' value='yes'>Yes";
+                echo "<input type='radio' name='primary_car' checked value='no'>No<br/>"; 
+                
+            }
+        ?>
         Description: 
-        <input type="text" name="description" size="120"><br>
-        Purchase date: (YYYY-MM-DD) <input type="date" name="purchase" min="2005-05-20" size="10"><br/>
+        <input type="text" name="description" size="120" value="<?php echo sVar('description'); ?>" ><br>
+        Purchase date: (YYYY-MM-DD) <input type="date" name="purchase" value="<?php echo sVar('date_aquired'); ?>" size="10"><br/>
         Is this a Race Car? 
-        <input type="radio" name="race_car" value="yes">Yes
-        <input type="radio" name="race_car" checked="checked" value="no">No
-        Race Number: <input type ="text" name="race_num" size="5">
-        Race Sponsor: <input type="text" name="race_sponsor"><br/>
+        <?php
+            if(($_GET['op'] == 'edit') && (sVar("race_car")== 1))
+            {
+                echo "<input type='radio' name='race_car' checked value='yes'>Yes";
+                echo "<input type='radio' name='race_car'  value='no'>No";
+            }
+            else  //edit and Not Race Car
+            {
+                echo "<input type='radio' name='race_car' value='yes'>Yes";
+                echo "<input type='radio' name='race_car' checked value='no'>No"; 
+                
+            }
+        ?>
+        Race Number: <input type ="text" name="race_num" size="5" value="<?php echo sVar('race_number'); ?>">
+        Race Sponsor: <input type="text" name="race_sponsor" "<?php echo sVar('race_sponsor'); ?>"><br/>
         <p></p>
         Friends:<br>
         <?php 

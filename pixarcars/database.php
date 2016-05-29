@@ -64,6 +64,64 @@ function dbRead($db,$sqlQuery)
     return $dbInfo;
 }
 
+function updateDbRecord()
+{
+    $db = openDB("pixar_cars");
+    
+    $name =$_GET["name"];
+    $description = $_GET["description"];
+    $bought = $_GET['purchase'];
+    $primary = $_GET['purchase'];
+    $racecar = $_GET['race_car'];
+    $racenum = $_GET['race_num'];
+    $racesponsor = $_GET['race_sponsor'];
+    
+    $id = $_SESSION['currRecord'];
+    
+    
+    if($primary === 'yes')
+        $primary = 1;
+    else
+        $primary = 0;
+    
+    
+     if($racecar === 'yes')
+        $racecar = 1;
+    else
+        $racecar = 0;
+     
+    
+    
+    $stmt = $db->prepare("UPDATE `cars` SET `name`=:name, `description`=:descr,  `date_aquired`=:buy, 
+        `primary_version`=:prim,  `race_car`=:rcar, `race_number`=:rnum, `race_sponsor`=:spon where id=:id");
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':descr', $description);
+    $stmt->bindParam(':buy', $bought);
+    $stmt->bindParam(':prim', $primary);
+    $stmt->bindParam(':rcar', $racecar);
+    $stmt->bindParam(':rnum', $racenum);
+    $stmt->bindParam(':spon', $racesponsor);
+    $stmt->bindParam(':id', $id);
+   
+    
+    $stmt->execute();
+    
+    
+
+    if ($stmt === FALSE) 
+    {
+        print_r($db->errorInfo());
+    }
+
+  //take care of primary id
+    
+  //take care of friends
+    
+  //take care of locations
+    
+  //take care of no image  
+}
+
 function addDbRecord()
 {
     $db = openDB("pixar_cars");

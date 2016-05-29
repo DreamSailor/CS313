@@ -25,17 +25,22 @@
         break;
      
      case "edit":
-        $carIndex = $_SESSION["currRecord"];
-        buildEditForm($fillData);
+        buildEditForm("update");
         break;
     
      case "add":
-        buildEditForm("");
+        buildEditForm("ok");
         break;
 
      case "ok":
          addDbRecord();
          echo "Your Record was added<br>";
+         echo "<button type='button' id='home' class='btn btn-sm btn-info btn-block' onclick=\"javascript:location.href='pixar.php'\">Return</button> ";    
+         break;
+     
+     case "update":
+         updateDbRecord();
+         echo "Your Record was Edited<br>";
          echo "<button type='button' id='home' class='btn btn-sm btn-info btn-block' onclick=\"javascript:location.href='pixar.php'\">Return</button> ";    
          break;
     

@@ -2,6 +2,7 @@
     // Start the session
     session_start();
     include "database.php";
+    include "files.php";
     
 
 /**************************************
@@ -46,8 +47,9 @@
                     . "FROM cars WHERE id=$db->quote($carIndex)";
             
             $carInfo = dbRead($db,$statement);
+            sessionWrite($carInfo);
             
-            //makre sure we only got one and display info
+            //make sure we only got one and display info
             if(count($carInfo) == 1)
             {
                 echo "<b>Car: ". $carInfo[0]["name"] ."</b>"
