@@ -56,23 +56,76 @@ return $db;
 
 function dbRead($db,$sqlQuery)
 {
-    try
-    {
-        //Build PDO statement and fetch it from DB
-        $statement = $db->query($sqlQuery);         
-        $dbInfo =  $statement->fetchAll(PDO::FETCH_ASSOC);
-        
-    } catch (Exception $ex) 
-    {
-        echo "Db Error: " . $ex->getMessage();
-        die();
-    }
-        
-    
+
+    //Build PDO statement and fetch it from DB
+    $statement = $db->query($sqlQuery);         
+    $dbInfo =  $statement->fetchAll(PDO::FETCH_ASSOC);
+  
     return $dbInfo;
 }
 
-function deleteDbrecord()
+function addDbRecord()
+{
+    $db = openDB("pixar_cars");
+    
+    $name =$_GET["name"];
+    $description = $_GET["description"];
+    $bought = $_GET['purchase'];
+    $primary = $_GET['purchase'];
+    $racecar = $_GET['race_car'];
+    $racenum = $_GET['race_num'];
+    $racesponsor = $_GET['race_sponsor'];
+    
+    $own = 1;
+    
+    if($primary === 'yes')
+        $primary = 1;
+    else
+        $primary = 0;
+    
+    
+     if($racecar === 'yes')
+        $racecar = 1;
+    else
+        $racecar = 0;
+     
+    
+    
+    $stmt = $db->prepare("INSERT INTO `cars` (`name`, `description`, `owned`, `date_aquired`, `primary_version`,  `race_car`, `race_number`, `race_sponsor`)
+    VALUES (:name, :descr, :own, :buy, :prim, :rcar, :rnum, :spon)");
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':descr', $description);
+    $stmt->bindParam(':own', $own);
+    $stmt->bindParam(':buy', $bought);
+    $stmt->bindParam(':prim', $primary);
+    $stmt->bindParam(':rcar', $racecar);
+    $stmt->bindParam(':rnum', $racenum);
+    $stmt->bindParam(':spon', $racesponsor);
+   
+    
+    $stmt->execute();
+    
+    
+
+    if ($stmt === FALSE) 
+    {
+        print_r($db->errorInfo());
+    }
+
+  //take care of primary id
+    
+  //take care of friends
+    
+  //take care of locations
+    
+  //take care of no image  
+    
+    
+    
+}
+
+
+function deleteDbRecord()
 { 
     $db = openDB("pixar_cars");
     $carIndex = $_SESSION["currRecord"];  
@@ -87,19 +140,10 @@ function deleteDbrecord()
             unlink($imageFile);            
    
  
-            //delete DB record
-        try {
-
-            // sql to delete a record
+            //delete DB record 
             $sql = "DELETE FROM cars WHERE id=$carIndex";
-
             $db->exec($sql);
 
-            }
-        catch(PDOException $e)
-            {
-            echo $sql . "<br>" . $e->getMessage();
-            }  
         
     }
     else
@@ -109,5 +153,27 @@ function deleteDbrecord()
     $db = null;
     
 }
+
+function getDbFriends()
+{
+    $db = openDB("pixar_cars");
+    $friends = dbRead($db,"select id,name from cars where primary_version=1");
+    
+    $db = null;
+    
+    return $friends;
+}
+
+function getDbLocations()
+{
+    $db = openDB("pixar_cars");
+    $items = dbRead($db,"select * from location");
+    
+    $db = null;
+    
+    return $items;
+}
+
+
 ?>
 

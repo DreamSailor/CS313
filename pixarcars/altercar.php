@@ -2,6 +2,7 @@
     // Start the session
     session_start();
     include "database.php";
+    include "files.php";
     include "display.php";
 
  
@@ -19,23 +20,28 @@
  switch($operation)
  {
      case "delete":
-        deleteDbrecord();
+        deleteDbRecord();
         renderCarList();
-         break;
+        break;
      
      case "edit":
         $carIndex = $_SESSION["currRecord"];
-        echo "Edit Car<br>";
-        echo $carIndex;
-        echo "<br>Done</br>";
+        buildEditForm($fillData);
         break;
     
      case "add":
-        echo "<h2>Add New Car</h2>";
-        echo "<form><input type='text' id='name'>";
-        echo "<input type='text' id='description' <br/>";
-        echo "<input type='submit' name='submit' value='Submit'> </form>";
+        buildEditForm("");
         break;
+
+     case "ok":
+         addDbRecord();
+         echo "Your Record was added<br>";
+         echo "<button type='button' id='home' class='btn btn-sm btn-info btn-block' onclick=\"javascript:location.href='pixar.php'\">Return</button> ";    
+         break;
+    
+     case "cancel":
+         renderCarList();
+         break;
  }
 
     

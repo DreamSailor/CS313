@@ -75,6 +75,15 @@ function deleteCar()
     }
     
 }
+
+
+function cancelEdit()
+{
+    
+    document.getElementById("displayArea").innerHTML = "<center>Operation Canceled - Please pick a new Car from the list, or press 'Add'</center>"; 
+    XMLRequestor("carDropdown","altercar.php","op=cancel");
+    disableBtns();
+}
  
 
 function alterCar(myFunc) 
@@ -87,20 +96,6 @@ function alterCar(myFunc)
         
         XMLRequestor("displayArea","altercar.php","op="+myFunc);
 
-//        if (window.XMLHttpRequest) 
-//        {
-//            // code for IE7+, Firefox, Chrome, Opera, Safari
-//            xmlhttp = new XMLHttpRequest();
-//        } 
-//        xmlhttp.onreadystatechange = function() {
-//            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
-//            {
-//                document.getElementById("displayArea").innerHTML = xmlhttp.responseText;
-//               
-//            }
-//        };
-//        xmlhttp.open("GET","altercar.php?op="+myFunc,true);
-//        xmlhttp.send();
 
     }
     
@@ -110,7 +105,25 @@ function alterCar(myFunc)
  {
       if(!document.getElementById(btn).classList.contains("disabled"))
         window.alert("This feature coming soon");
+    
  }
  
+  function testme(string)
+ {
+      
+        window.alert("This is a test of " + string);
+    
+ }
+ 
+ 
+function addEditCar()
+{
+    document.getElementById('addcar').submit();
+    console.log("Here I am");
+    XMLRequestor("carDropdown","altercar.php","op=ok");
+    disableBtns();
+    document.getElementById("displayArea").innerHTML = "<center>Your Car was successfully added, Choose it from the dropdown list above</center>"; 
+    
+}
 
 

@@ -97,9 +97,15 @@
                     if(count($carInfo) == 1)                   
                     {
                         $imageInfo = dbRead($db,"SELECT folderpath, name FROM image WHERE car_id=$db->quote($carIndex)"); 
+                        if(empty($imageInfo))
+                            $imageFile = "./carshots/noimage.jpg";  //if not use a place holder
+                        else
+                            $imageFile = $imageInfo[0]["folderpath"] ."/" .$imageInfo[0]["name"];
+                     
+   
                          echo "<img class='img-thumbnail' src='" 
-                        .$imageInfo[0]["folderpath"] ."/" .$imageInfo[0]["name"] 
-                                 ."'height='225' width='225' /><br>";
+                        .$imageFile ."'height='225' width='225' /><br>";
+                        
 
                     }
 
