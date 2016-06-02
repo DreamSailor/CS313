@@ -1,12 +1,4 @@
-<?php 
- // Start the session
-    session_start();
-    if (empty($_SESSION["loggedin"]))
-    {
-        header("Location:signin.php");
-    }
-    
- ?>
+<?php include "helper_funcs.php"; ?>
 <!DOCTYPE html>
 <!--
 /**************************************
@@ -20,15 +12,15 @@
 -->
 <html>
     <head>
-        <title>GroupProject 7.5</title>
+        <title>GroupProject 6.5</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
     </head>
     <body>
               
-        <h2>Welcome <?php echo $_SESSION['name']; ?> to the Scripture Homepage.</h2><p/>
-        <form class="search" id="login" action="add_verse.php" method="post"  >
+      
+        <form class="search" id="scriptures" action="add_verse.php" method="post"  >
             <div>Please Add your Scripture:</div>
             Book:
             <input type="text" name="book"><br/>

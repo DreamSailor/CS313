@@ -9,6 +9,25 @@
  * 
  ****************************************/
 
+function checkError($str)
+{
+    $errstr = null;
+    
+    if(isset($_SESSION[$str]))
+        $errstr = $_SESSION[$str];
+           
+    return $errstr;
+}
+
+function checkValidLen($str,$len)
+{
+    $flag = false;
+    if(strlen ($str) >= $len )
+        $flag= true;
+       
+   return $flag;
+}
+
                 
 function getTopics()
 {
@@ -107,7 +126,15 @@ function addVerse()
     return $last_id;
 }
 
+function dbRead($db,$sqlQuery)
+{
 
+    //Build PDO statement and fetch it from DB
+    $statement = $db->query($sqlQuery);         
+    $dbInfo =  $statement->fetchAll(PDO::FETCH_ASSOC);
+  
+    return $dbInfo;
+}
 
 function openDB($dbname)
 {

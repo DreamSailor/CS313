@@ -165,18 +165,38 @@ function addDbRecord()
     
     
 
-    if ($stmt === FALSE) 
+    if ($stmt === TRUE)
     {
-        print_r($db->errorInfo());
+        $last_id = $stmt->lastInsertId();
+    }
+    else
+    {
+            print_r($db->errorInfo());
     }
 
   //take care of primary id
+    if($primary == 1)
+    {
+         $stmt = "UPDATE `cars` SET primary_car_id = $last_id where id=$last_id";
+         $stmt = $db->prepare($sql);
+         $stmt->execute();
+    }
+    
+    if ($stmt === TRUE)
+    {
+        
+        $last_id = $stmt->lastInsertId();
+    }
+    else
+    {
+        print_r($db->errorInfo());
+    }
     
   //take care of friends
     
   //take care of locations
     
-  //take care of no image  
+
     
     
     
@@ -212,7 +232,8 @@ function deleteDbRecord()
     
 }
 
-function getDbFriends()
+
+function getAllDbFriends()
 {
     $db = openDB("pixar_cars");
     $friends = dbRead($db,"select id,name from cars where primary_version=1");
@@ -222,7 +243,8 @@ function getDbFriends()
     return $friends;
 }
 
-function getDbLocations()
+
+function getAllDbLocations()
 {
     $db = openDB("pixar_cars");
     $items = dbRead($db,"select * from location");

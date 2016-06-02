@@ -142,7 +142,7 @@
             <div class="col-sm-3 " >
                 <?php 
                 
-                    //Added infor for Locations from Many-to-Many query
+                    //Added info for Locations from Many-to-Many query
                     if(count($carInfo) == 1)                   
                     {
                         echo "<strong>Locations:</strong><br>";
@@ -150,8 +150,8 @@
                                . "location as l LEFT JOIN location_car_bridge "
                                . "AS lcb ON lcb.place_id = l.id WHERE lcb.car_id"
                                . " = $db->quote($carIndex)");
-                       $friendInfo = $statement2->fetchAll(PDO::FETCH_ASSOC);
-                       foreach($friendInfo as $row)
+                       $locationInfo = $statement2->fetchAll(PDO::FETCH_ASSOC);
+                       foreach($locationInfo as $row)
                        {
                            echo $row['name']. " - " . $row['country']. "<br/>";
                            

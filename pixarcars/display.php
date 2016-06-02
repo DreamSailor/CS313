@@ -22,7 +22,9 @@ function buildEditForm($op)
     else
         echo "Edit Car</h5>";
     ?>
-    <form id="addcar" action="altercar.php" method="GET">
+   <!-- <form id="addcar" >  -->
+        <div id="form" class="result">
+        <form method="post" id="addcar"> 
         <input type="hidden" name="op" value=<?php echo "$op"; ?> /> 
         Name:
         <input type="text" name="name" value="<?php echo sVar('name'); ?>">
@@ -62,13 +64,13 @@ function buildEditForm($op)
         <p></p>
         Friends:<br>
         <?php 
-            $friends = getDbFriends();
+            $friends = getAllDbFriends();
             displayFriends($friends);
         ?>
         <p></p>
         Locations:<br>
         <?php 
-            $locations = getDbLocations();
+            $locations = getAllDbLocations();
             displayLocations($locations);
         ?>
         <p/>
@@ -78,7 +80,7 @@ function buildEditForm($op)
         <button type="button" id="cancel" class="btn btn-sm btn-info " onclick="cancelEdit()">Cancel</button>
 
       </form>  
-
+     </div>
 <?php } ?>
 
 

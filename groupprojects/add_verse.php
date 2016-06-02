@@ -9,7 +9,7 @@
  * 
  ****************************************/
 
-include "db_funcs.php";
+include "helper_funcs.php";
 
 
 //Add teh scrpture vers
