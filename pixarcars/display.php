@@ -24,7 +24,7 @@ function buildEditForm($op)
     ?>
    <!-- <form id="addcar" >  -->
         <div id="form" class="well">
-        <form method="post" class="form-horizontal" id="addcar"> 
+        <form method="post" id="addcar"> 
         <input  type="hidden" name="op" value=<?php echo "$op"; ?> /> 
  
         <label class="col-sm-2" for="name">Name:</label>
@@ -37,12 +37,15 @@ function buildEditForm($op)
 
         <span class="col-sm-offset-2 col-sm-3">Select Primary Car:<br></span>
         <span class="col-sm-4">
-        <?php
-        
+        <?php    
             $primeId = 0;
-            if(($_POST['op'] == 'edit') && isset($_SESSION['primary_car_id']))
-                $primeId = $_SESSION['primary_car_id'];
-            
+            if($_POST['op'] == 'edit')
+            {
+                    $primeId =$_SESSION['carArray']['primary_car_id'];
+                    if(empty($primeId))
+                        $primeId = 0;
+            }
+
             renderPrimaryList($primeId);
                 
           
@@ -124,9 +127,8 @@ function renderPrimaryList($myId)
 {      
     ?>
 
-   <form id='carselect'>
         <select  name="prime">
-            <option value="this">Self</option>
+            <option value="0">Self</option>
             <?php
             
  
@@ -138,7 +140,7 @@ function renderPrimaryList($myId)
 
                 foreach ($results as $row)
                 {
-                    if($myId = $row["id"])
+                    if($myId == $row["id"])
                     {
                         echo "<option selected='selected' value=" .$row["id"] . ">" . $row["name"] ."</option>\n";
                     }
@@ -150,7 +152,7 @@ function renderPrimaryList($myId)
 
             ?>
           </select>
-    </form>
+   
 <?php } ?>
    
     

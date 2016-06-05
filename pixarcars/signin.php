@@ -1,6 +1,7 @@
 <?php
     // Start the session
     session_start();
+    require "password.php";
     include "database.php";
     include "display.php";
     

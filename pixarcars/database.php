@@ -75,12 +75,16 @@ function updateDbRecord()
     $racecar = $_POST['race_car'];
     $racenum = $_POST['race_num'];
     $racesponsor = $_POST['race_sponsor'];
+    $primeId = $_POST['prime'];
     
     $id = $_SESSION['currRecord'];
     
-    
-    if($primary === 'yes')
+    // 0 = self for PrimeID
+    if($primeId == "0")
+    {
         $primary = 1;
+        $primeId = $id;
+    }
     else
         $primary = 0;
     
@@ -93,11 +97,12 @@ function updateDbRecord()
     
     
     $stmt = $db->prepare("UPDATE `cars` SET `name`=:name, `description`=:descr,  `date_aquired`=:buy, 
-        `primary_version`=:prim,  `race_car`=:rcar, `race_number`=:rnum, `race_sponsor`=:spon where id=:id");
+        `primary_version`=:prim, `primary_car_id` = :pid,  `race_car`=:rcar, `race_number`=:rnum, `race_sponsor`=:spon where id=:id");
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':descr', $description);
     $stmt->bindParam(':buy', $bought);
     $stmt->bindParam(':prim', $primary);
+    $stmt->bindParam(':pid', $primeId);
     $stmt->bindParam(':rcar', $racecar);
     $stmt->bindParam(':rnum', $racenum);
     $stmt->bindParam(':spon', $racesponsor);
@@ -113,7 +118,7 @@ function updateDbRecord()
     }
     else
     {
-            print_r($db->errorInfo());
+        print_r($db->errorInfo());
     }
 
   //take care of primary id
@@ -132,14 +137,14 @@ function addDbRecord()
     $name =$_POST["name"];
     $description = $_POST["description"];
     $bought = $_POST['purchase'];
-    $primary = $_POST['purchase'];
     $racecar = $_POST['race_car'];
     $racenum = $_POST['race_num'];
     $racesponsor = $_POST['race_sponsor'];
+    $primeId = $_POST['prime'];
     
     $own = 1;
     
-    if($primary === 'yes')
+    if($primeId === "0")
         $primary = 1;
     else
         $primary = 0;
@@ -168,32 +173,29 @@ function addDbRecord()
     
     
 
-//    if ($flag)
-//    {
-//        $last_id = $stmt->lastInsertId();
-//    }
-//    else
-//    {
-//            print_r($db->errorInfo());
-//    }
+    if ($flag)
+    {
+        $last_id = $db->lastInsertId();
+    }
+    else
+    {
+            print_r($db->errorInfo());
+    }
 
   //take care of primary id
     if($primary == 1)
     {
          $stmt = "UPDATE `cars` SET primary_car_id = $last_id where id=$last_id";
-         $stmt = $db->prepare($sql);
-         $flag= $stmt->execute();
     }
-//    
-//    if ($flag)
-//    {
-//        
-//        $last_id = $stmt->lastInsertId();
-//    }
-//    else
-//    {
-//       // print_r($db->errorInfo());
-//    }
+    else
+    {
+        $stmt = "UPDATE `cars` SET primary_car_id = " . intval($primeId) ." where id=$last_id";
+    }
+    
+    $stmt = $db->prepare($stmt);
+    $flag = $stmt->execute();
+    
+
     
   //take care of friends
     
