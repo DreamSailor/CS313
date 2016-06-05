@@ -245,8 +245,7 @@ function addDbRecord()
        
    }
     
-
-    
+ 
 }
 
 
