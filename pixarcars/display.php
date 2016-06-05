@@ -18,9 +18,15 @@ function buildEditForm($op)
 
     echo "<h5>";
     if($_POST['op'] == 'add')
+    {
         echo "Add Car</h5>";
+        $cur_op = "add";
+    }
     else
+    {
         echo "Edit Car</h5>";
+        $cur_op = "edit";
+    }
     ?>
 
         <form method="post" id="addcar" role="form" class="">  
@@ -30,7 +36,7 @@ function buildEditForm($op)
         <span class="col-sm-5">
         <?php    
             $primeId = 0;
-            if($_POST['op'] == 'edit')
+            if($cur_op == 'edit')
             {
                     $primeId =$_SESSION['carArray']['primary_car_id'];
                     if(empty($primeId))
@@ -64,7 +70,7 @@ function buildEditForm($op)
         <label class="col-sm-3" for="racecar">Race Car?</label> 
         <span class="col-sm-5">
         <?php
-            if(($_POST['op'] == 'edit') && (sVar("race_car")== 1))
+            if(($cur_op == 'edit') && (sVar("race_car")== 1))
             {
                 echo "<input type='radio' name='race_car' checked value='yes'> Yes ";
                 echo "<input type='radio' name='race_car'  value='no'> No";
@@ -95,11 +101,20 @@ function buildEditForm($op)
         <div class="form-group">
             <label class="col-sm-3" >Friends:</label>
             <span class="col-sm-8">    
-        <?php 
-            $friends = getAllDbFriends();
-            displayFriends($friends);
+            <?php 
+                 $friends = getAllDbFriends();  //get all possible friends from db
+                if($cur_op == 'add')
+                {
+                   
+                    displayFriends($friends);  //display all friend options
+                }
+                else
+                {
+                    $myFriends = getMyDbFriends($_SESSION['carArray']['id']);
+                    
+                }
             ?></span>
-             <span class="col-sm-1" ><br>&nbsp;</span>
+            <span class="col-sm-1" ><br>&nbsp;</span>
         </div>
  
          <div class="form-group">

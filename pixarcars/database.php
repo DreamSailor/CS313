@@ -121,8 +121,7 @@ function updateDbRecord()
         print_r($db->errorInfo());
     }
 
-  //take care of primary id
-    
+  
   //take care of friends
     
   //take care of locations
@@ -195,13 +194,58 @@ function addDbRecord()
     $stmt = $db->prepare($stmt);
     $flag = $stmt->execute();
     
-
+    $friends = $_POST['friends'];
     
   //take care of friends
+ 
+   if(count($friends) > 0)
+   {    $count = count($friends);
+        $bean = 1;
+           
+       $stmt = "INSERT INTO `friend_bridge` (`car_id`, `friend_id`) VALUES ";
+       foreach($friends as $item)
+       {
+           $stmt = $stmt . "($last_id,$item)";
+           if($bean++ < $count)
+                $stmt = $stmt . ","; 
+            else 
+                $stmt = $stmt . ";"; 
+                
+            
+       }
+       
+        $stmt = $db->prepare($stmt);
+        $flag = $stmt->execute();
+       
+   }
+           
     
   //take care of locations
+       $spots = $_POST['locations'];
     
-  //header("Location:cheat.php");
+ 
+   if(count($spots) > 0)
+   {    $count = count($spots);
+        $bean = 1;
+           
+       $stmt = "INSERT INTO `location_car_bridge` (`car_id`, `place_id`) VALUES ";
+       foreach($spots as $item)
+       {
+           $stmt = $stmt . "($last_id,$item)";
+           if($bean++ < $count)
+                $stmt = $stmt . ","; 
+            else 
+                $stmt = $stmt . ";"; 
+                
+            
+       }
+       
+        $stmt = $db->prepare($stmt);
+        $flag = $stmt->execute();
+       
+   }
+    
+
     
 }
 
@@ -240,6 +284,16 @@ function getAllDbFriends()
 {
     $db = openDB("pixar_cars");
     $friends = dbRead($db,"select id,name from cars where primary_version=1");
+    
+    $db = null;
+    
+    return $friends;
+}
+
+function getMyDbFriends($id)
+{
+    $db = openDB("pixar_cars");
+    $friends = dbRead($db,"select car_id,friend_id from friend_bridge where car_id=$id");
     
     $db = null;
     
