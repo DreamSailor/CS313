@@ -22,21 +22,12 @@ function buildEditForm($op)
     else
         echo "Edit Car</h5>";
     ?>
-   <!-- <form id="addcar" >  -->
-        <div id="form" class="well">
-        <form method="post" id="addcar"> 
+
+        <form method="post" id="addcar" role="form" class="">  
         <input  type="hidden" name="op" value=<?php echo "$op"; ?> /> 
- 
-        <label class="col-sm-2" for="name">Name:</label>
-        <input class="col-sm-5" type="text" name="name" value="<?php echo sVar('name'); ?>">
-        <span class="col-sm-5" ><br>&nbsp;</span>
-
-        <label class="col-sm-2" for="descript">Description:</label> 
-        <input class="col-sm-9" type="text" name="description" size="120" value="<?php echo sVar('description'); ?>" >
-        <span class="col-sm-1" ><br>&nbsp;</span>
-
-        <span class="col-sm-offset-2 col-sm-3">Select Primary Car:<br></span>
-        <span class="col-sm-4">
+        <div class="form-group">
+        <label class="col-sm-3">Primary Car:<br></label>
+        <span class="col-sm-5">
         <?php    
             $primeId = 0;
             if($_POST['op'] == 'edit')
@@ -48,50 +39,89 @@ function buildEditForm($op)
 
             renderPrimaryList($primeId);
                 
-          
+         
             ?></span>
-            <span class="control-label col-sm-5" ><br>&nbsp;</span>
-        
-        Is this a Race Car? 
+            <span class="col-sm-4" ><br>&nbsp;</span>
+            </div>
+        <div class="form-group">
+        <label class="col-sm-3" for="name">Name:</label>
+        <input class="col-sm-5" type="text" name="name" value="<?php echo sVar('name'); ?>">
+        <span class="col-sm-4" ><br>&nbsp;</span>
+        <div>
+
+          <div class="form-group">   
+        <label class="col-sm-3" for="descript">Description:</label> 
+        <input class="col-sm-7" type="text" name="description" size="120" value="<?php echo sVar('description'); ?>" >
+        <span class="col-sm-2" ><br>&nbsp;</span>
+          </div>
+            
+        <div class="form-group">
+        <label class="col-sm-3" for="data">Purchase date:</label>
+        <input class=col-sm-9" type="date" placeholder="YYYY-MM-DD" name="purchase" value="<?php echo sVar('date_aquired'); ?>" size="10"><br/>
+         </div>   
+            
+         <div class="form-group">
+        <label class="col-sm-3" for="racecar">Race Car?</label> 
+        <span class="col-sm-5">
         <?php
             if(($_POST['op'] == 'edit') && (sVar("race_car")== 1))
             {
-                echo "<input type='radio' name='race_car' checked value='yes'>Yes";
-                echo "<input type='radio' name='race_car'  value='no'>No";
+                echo "<input type='radio' name='race_car' checked value='yes'> Yes ";
+                echo "<input type='radio' name='race_car'  value='no'> No";
             }
             else  //edit and Not Race Car
             {
-                echo "<input type='radio' name='race_car' value='yes'>Yes";
-                echo "<input type='radio' name='race_car' checked value='no'>No"; 
+                echo "<input type='radio' name='race_car' value='yes'> Yes ";
+                echo "<input type='radio' name='race_car' checked value='no'> No"; 
                 
             }
         ?>
-        Race Number: <input type ="text" name="race_num" size="5" value="<?php echo sVar('race_number'); ?>">
-        Race Sponsor: <input type="text" name="race_sponsor" "<?php echo sVar('race_sponsor'); ?>"><br/>
-        <p>
-        Purchase date: (YYYY-MM-DD) <input type="date" name="purchase" value="<?php echo sVar('date_aquired'); ?>" size="10"><br/>
-        </p>
-        Friends:<br>
+         </span>
+         <span class="col-sm-4" ><br>&nbsp;</span>
+         </div> 
+            
+         <div class="form-group">   
+        <label class="col-sm-3" for="racenum">Race Number:</label> 
+        <input class="col-sm-2" type ="text" name="race_num" size="5" value="<?php echo sVar('race_number'); ?>">
+        <span class="col-sm-7" ><br>&nbsp;</span>
+         </div>
+        
+         <div class="form-group">
+        <label class="col-sm-3" for="sponsor"> Sponsor:</label> 
+        <input class="col-sm-5" type="text" name="race_sponsor" "<?php echo sVar('race_sponsor'); ?>">
+         <span class="col-sm-4" ><br>&nbsp;</span>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3" >Friends:</label>
+            <span class="col-sm-8">    
         <?php 
             $friends = getAllDbFriends();
             displayFriends($friends);
-        ?>
-        <p></p>
-        Locations:<br>
-        <?php 
+            ?></span>
+             <span class="col-sm-1" ><br>&nbsp;</span>
+        </div>
+ 
+         <div class="form-group">
+        <label class="col-sm-3">Known Locations:</label>
+        <span class="col-sm-9">
+            <?php 
             $locations = getAllDbLocations();
             displayLocations($locations);
-        ?>
-        <p/>
-        
-        
-       <button type="submit" id="ok" class="btn btn-sm btn-primary ">OK</button>
-        <button type="button" id="cancel" class="btn btn-sm btn-info " onclick="cancelEdit()">Cancel</button>
+            ?>
+        </span>
+        <span class="col-sm-1" ><br>&nbsp;</span>
+         </div>
+<p/>
+       <span class="col-sm-2" ><br>&nbsp;</span>
+       <button type="submit" id="ok" class="btn btn-sm btn-primary col-sm-2 ">OK</button>
+       <button type="button" id="cancel" class="btn btn-sm btn-info col-sm-2" onclick="cancelEdit()">Cancel</button>
+    <span class="col-sm-6" ><br>&nbsp;</span>
 
       </form>  
-     </div>
+   
 <?php } ?>
-
+ 
 
 <?php
 function renderCarList()
