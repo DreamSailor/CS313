@@ -35,7 +35,14 @@
       height: 100%;
       padding: 15px;
     }
-	
+
+        /* Set gray background color and 100% height */
+.grayband {
+      background-color: #f1f1f1;
+      height: 45px;
+      padding: 10px;
+    }
+    
     /* Set gray background color and 100% height */
 .graybar {
       background-color: #f1f1f1;

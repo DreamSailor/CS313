@@ -35,8 +35,13 @@ function XMLRequestor(htmlElement,phpFile,paramString)
             document.getElementById(htmlElement).innerHTML = xmlhttp.responseText;
         }
     };
-    xmlhttp.open("GET",phpFile+"?"+paramString,true);
-    xmlhttp.send();
+    xmlhttp.open("POST",phpFile,true);
+    
+    //Send the proper header information along with the request
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.setRequestHeader("Content-length", paramString.length);
+    xmlhttp.setRequestHeader("Connection", "close");
+    xmlhttp.send(paramString);
     
 }
 
@@ -80,9 +85,9 @@ function deleteCar()
 function cancelEdit()
 {
     
-    document.getElementById("displayArea").innerHTML = "<center>Operation Canceled - Please pick a new Car from the list, or press 'Add'</center>"; 
-    XMLRequestor("carDropdown","altercar.php","op=cancel");
-    disableBtns();
+   XMLRequestor("carDropdown","altercar.php","op=cancel");
+   disableBtns();
+    document.getElementById("displayArea").innerHTML = "<center>Operation Canceled! - Please pick a Car from the list, or press 'Add'</center>"; 
 }
  
 
@@ -115,15 +120,15 @@ function alterCar(myFunc)
     
  }
  
- 
-function addEditCar()
-{
-    document.getElementById('addcar').submit();
-    console.log("Here I am");
-    XMLRequestor("carDropdown","altercar.php","op=ok");
-    disableBtns();
-    document.getElementById("displayArea").innerHTML = "<center>Your Car was successfully added, Choose it from the dropdown list above</center>"; 
-    
-}
+// 
+//function addEditCar()
+//{
+//    document.getElementById('addcar').submit();
+//    console.log("Here I am");
+//    XMLRequestor("carDropdown","altercar.php","op=ok");
+//    disableBtns();
+//    document.getElementById("displayArea").innerHTML = "<center>Your XCar was successfully added, Choose it from the dropdown list above</center>"; 
+//    
+//}
 
 

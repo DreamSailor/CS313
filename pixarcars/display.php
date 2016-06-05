@@ -17,37 +17,41 @@ function buildEditForm($op)
     setOpSession($op);
 
     echo "<h5>";
-    if($_GET['op'] == 'add')
+    if($_POST['op'] == 'add')
         echo "Add Car</h5>";
     else
         echo "Edit Car</h5>";
     ?>
    <!-- <form id="addcar" >  -->
-        <div id="form" class="result">
-        <form method="post" id="addcar"> 
-        <input type="hidden" name="op" value=<?php echo "$op"; ?> /> 
-        Name:
-        <input type="text" name="name" value="<?php echo sVar('name'); ?>">
-        Is this the Primary Car? 
+        <div id="form" class="well">
+        <form method="post" class="form-horizontal" id="addcar"> 
+        <input  type="hidden" name="op" value=<?php echo "$op"; ?> /> 
+ 
+        <label class="col-sm-2" for="name">Name:</label>
+        <input class="col-sm-5" type="text" name="name" value="<?php echo sVar('name'); ?>">
+        <span class="col-sm-5" ><br>&nbsp;</span>
+
+        <label class="col-sm-2" for="descript">Description:</label> 
+        <input class="col-sm-9" type="text" name="description" size="120" value="<?php echo sVar('description'); ?>" >
+        <span class="col-sm-1" ><br>&nbsp;</span>
+
+        <span class="col-sm-offset-2 col-sm-3">Select Primary Car:<br></span>
+        <span class="col-sm-4">
         <?php
-            if(($_GET['op'] == 'add') || (($_GET['op'] == 'edit') && (sVar("primary_version")== 1)))
-            {
-                echo "<input type='radio' name='primary_car' checked value='yes'>Yes";
-                echo "<input type='radio' name='primary_car'  value='no'>No<br/>";
-            }
-            else  //edit and Not Primary
-            {
-                echo "<input type='radio' name='primary_car' value='yes'>Yes";
-                echo "<input type='radio' name='primary_car' checked value='no'>No<br/>"; 
+        
+            $primeId = 0;
+            if(($_POST['op'] == 'edit') && isset($_SESSION['primary_car_id']))
+                $primeId = $_SESSION['primary_car_id'];
+            
+            renderPrimaryList($primeId);
                 
-            }
-        ?>
-        Description: 
-        <input type="text" name="description" size="120" value="<?php echo sVar('description'); ?>" ><br>
-        Purchase date: (YYYY-MM-DD) <input type="date" name="purchase" value="<?php echo sVar('date_aquired'); ?>" size="10"><br/>
+          
+            ?></span>
+            <span class="control-label col-sm-5" ><br>&nbsp;</span>
+        
         Is this a Race Car? 
         <?php
-            if(($_GET['op'] == 'edit') && (sVar("race_car")== 1))
+            if(($_POST['op'] == 'edit') && (sVar("race_car")== 1))
             {
                 echo "<input type='radio' name='race_car' checked value='yes'>Yes";
                 echo "<input type='radio' name='race_car'  value='no'>No";
@@ -61,7 +65,9 @@ function buildEditForm($op)
         ?>
         Race Number: <input type ="text" name="race_num" size="5" value="<?php echo sVar('race_number'); ?>">
         Race Sponsor: <input type="text" name="race_sponsor" "<?php echo sVar('race_sponsor'); ?>"><br/>
-        <p></p>
+        <p>
+        Purchase date: (YYYY-MM-DD) <input type="date" name="purchase" value="<?php echo sVar('date_aquired'); ?>" size="10"><br/>
+        </p>
         Friends:<br>
         <?php 
             $friends = getAllDbFriends();
@@ -86,10 +92,11 @@ function buildEditForm($op)
 
 <?php
 function renderCarList()
-{      
+{  
+    $_SESSION['carArray'] = NULL;
     ?>
 
-   <form>
+   <form id='carselect'>
         <select  name="cars" onchange="showCar(this.value)">
             <option value="">Select a car:</option>
             <?php
@@ -111,6 +118,41 @@ function renderCarList()
     </form>
 <?php } ?>
 
+   
+   <?php
+function renderPrimaryList($myId)
+{      
+    ?>
+
+   <form id='carselect'>
+        <select  name="prime">
+            <option value="this">Self</option>
+            <?php
+            
+ 
+                //Open the DB
+                $db = OpenDB("pixar_cars");
+
+                //Get the list of cars from DB
+                $results = dbRead($db,"SELECT id, name FROM cars WHERE primary_version = 1 ORDER BY cars.name ASC");
+
+                foreach ($results as $row)
+                {
+                    if($myId = $row["id"])
+                    {
+                        echo "<option selected='selected' value=" .$row["id"] . ">" . $row["name"] ."</option>\n";
+                    }
+                    else
+                        echo "<option value=" .$row["id"] . ">" . $row["name"] ."</option>\n";
+                }
+
+                $db = null;  //Close out the DB
+
+            ?>
+          </select>
+    </form>
+<?php } ?>
+   
     
 <?php 
 
@@ -139,4 +181,17 @@ function displayFriends($items)
    }
    echo "<br/>";
 }
+
+function checkError($str)
+{
+    $errstr = null;
+    if(isset($_SESSION[$str]))
+        $errstr = $_SESSION[$str];
+           
+    return $errstr;
+}
+  
+
+
+
 ?>

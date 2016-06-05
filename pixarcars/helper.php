@@ -2,7 +2,7 @@
 
 /**************************************
  * 
- *  File: files.php
+ *  File: helper.php
  *  Created by: jsimpson
  *  Date: May 28, 2016 8:02:26 AM
  *  Description: Physical File Manipulation functions
@@ -49,7 +49,7 @@ function setOpSession($str)
 
 function sVar($str)
 {
-    if($_GET['op'] == 'edit')
+    if($_POST['op'] == 'edit')
         $var = $_SESSION['carArray'][$str];
     else
         $var="";

@@ -2,7 +2,7 @@
     // Start the session
     session_start();
     include "database.php";
-    include "files.php";
+    include "helper.php";
     
 
 /**************************************
@@ -38,7 +38,7 @@
             $db = OpenDB("pixar_cars");
             
             //Get Value from dropdown and then store it in session variable too
-            $carIndex =  $_GET['cars'];            
+            $carIndex =  $_POST['cars'];            
             $_SESSION["currRecord"] = $carIndex;
            
             

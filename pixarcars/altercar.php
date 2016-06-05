@@ -2,8 +2,9 @@
     // Start the session
     session_start();
     include "database.php";
-    include "files.php";
+    include "helper.php";
     include "display.php";
+ 
 
  
 /**************************************
@@ -15,7 +16,7 @@
  * 
  ****************************************/
     
- $operation =  $_GET['op'];  
+ $operation =  $_POST['op'];  
  
  switch($operation)
  {
@@ -34,20 +35,19 @@
 
      case "ok":
          addDbRecord();
-         echo "Your Record was added<br>";
-         echo "<button type='button' id='home' class='btn btn-sm btn-info btn-block' onclick=\"javascript:location.href='pixar.php'\">Return</button> ";    
+         renderCarList();  
          break;
      
      case "update":
          updateDbRecord();
-         echo "Your Record was Edited<br>";
-         echo "<button type='button' id='home' class='btn btn-sm btn-info btn-block' onclick=\"javascript:location.href='pixar.php'\">Return</button> ";    
+         renderCarList();
+         //echo "Your Record was Edited<br>";
+         //echo "<button type='button' id='home' class='btn btn-sm btn-info btn-block' onclick=\"javascript:location.href='pixar.php'\">Return</button> ";    
          break;
     
      case "cancel":
          renderCarList();
+         //echo"<center>Operation Canceled - Please pick a new Car from the list, or press 'Add'</center>";
          break;
  }
 
-    
-?>

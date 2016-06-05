@@ -1,18 +1,16 @@
 <?php
+  
     // Start the session
-    session_start();
+    session_start();   
+    //CHeck if we are logged in/ if not go to the login page
+    if (empty($_SESSION["loggedin"]))
+    {
+        header("Location:signin.php");
+    }
+      
     include "database.php";
     include "display.php";
-    
-    /**************************************
- * 
- *  File: Pixar.php  Database Assignment
- *  Created by: jsimpson
- *  Date: May 18, 2016 7:01:44 PM
- *  Description:
- * 
- ****************************************/
-    
+
 ?>
 <!DOCTYPE html>
 
@@ -33,16 +31,12 @@
 
                $(document).on('submit', '#addcar', function()
                 {		
-                    $.post('submit.php', $(this).serialize())
+                    $.post('altercar.php', $(this).serialize())
                     .done(function(data)
-                    {
-                        $("#addcar").fadeOut('slow', function()
-                        {
-                            $(".result").fadeIn('slow', function()
-                            {
-                                $(".result").html(data);	
-                            });
-                       });
+                    {    
+                        $("#displayArea").html("<center>Operation completed! - Please pick a Car from the list, or press 'Add'</center>");
+                        $("#carDropdown").html(data);
+
                     })
                     .fail(function()
                     {
@@ -54,8 +48,6 @@
             });
             </script>
 
-        
-  
         <title>My Pixar Car Collection</title>      
     </head>
     <body>
@@ -68,13 +60,14 @@
                 <div class="col-sm-3"></div>
             </div>
         
-        <div class="row bottombrd graybar">
-            <div class="col-sm-2">
+        <div class="row bottombrd grayband">
+            <div class="col-sm-3">
             </div>
-            <div id="carDropdown" class="col-sm-4">
+            <div id="carDropdown" class="text-center col-sm-4">
              <?php  renderCarList();  ?> 
+               
             </div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-3"></div>
         </div>        
         <div class="row box content">
             <div class="col-sm-1 bluebar">
@@ -86,40 +79,7 @@
                 </div>
             </div>
             <div class="col-sm-9 lsidebrd rsidebrd graybar " id="displayArea">
-                
-                
- <!--               	<div id="form" class="result">
-                            <form method="post" id="reg-form">
-                            <table border="0">
-                            <tr>
-                            <td><input type="text" name="fname" id="lname" placeholder="First Name" /></td>
-                            </tr>
-
-                            <tr>
-                            <td><input type="text" name="lname" id="lname" placeholder="Last Name" /></td>
-                            </tr>
-
-                            <tr>
-                            <td><input type="text" name="email" id="email" placeholder="Your Mail" /></td>
-                            </tr>
-
-                            <tr>
-                            <td><input type="text" name="phno" id="phno" placeholder="Contact No" /></td>
-                            </tr>
-
-                            <tr>
-                            <td><hr /></td>
-                            </tr>
-
-                            <tr>
-                            <td align="center"><button type="submit">Register</button></td>
-                            </tr>
-                            </table>
-                            </form>
-                        </div>
-                
-           -->     
-                
+                                
             </div>
             <div class="col-sm-2 bluebar"></div>
         </div> 

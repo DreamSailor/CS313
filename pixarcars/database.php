@@ -68,13 +68,13 @@ function updateDbRecord()
 {
     $db = openDB("pixar_cars");
     
-    $name =$_GET["name"];
-    $description = $_GET["description"];
-    $bought = $_GET['purchase'];
-    $primary = $_GET['purchase'];
-    $racecar = $_GET['race_car'];
-    $racenum = $_GET['race_num'];
-    $racesponsor = $_GET['race_sponsor'];
+    $name =$_POST["name"];
+    $description = $_POST["description"];
+    $bought = $_POST['purchase'];
+    $primary = $_POST['purchase'];
+    $racecar = $_POST['race_car'];
+    $racenum = $_POST['race_num'];
+    $racesponsor = $_POST['race_sponsor'];
     
     $id = $_SESSION['currRecord'];
     
@@ -104,13 +104,16 @@ function updateDbRecord()
     $stmt->bindParam(':id', $id);
    
     
-    $stmt->execute();
-    
+    $flag = $stmt->execute();
     
 
-    if ($stmt === FALSE) 
+    if ($flag)
     {
-        print_r($db->errorInfo());
+        $last_id = $db->lastInsertId();
+    }
+    else
+    {
+            print_r($db->errorInfo());
     }
 
   //take care of primary id
@@ -126,13 +129,13 @@ function addDbRecord()
 {
     $db = openDB("pixar_cars");
     
-    $name =$_GET["name"];
-    $description = $_GET["description"];
-    $bought = $_GET['purchase'];
-    $primary = $_GET['purchase'];
-    $racecar = $_GET['race_car'];
-    $racenum = $_GET['race_num'];
-    $racesponsor = $_GET['race_sponsor'];
+    $name =$_POST["name"];
+    $description = $_POST["description"];
+    $bought = $_POST['purchase'];
+    $primary = $_POST['purchase'];
+    $racecar = $_POST['race_car'];
+    $racenum = $_POST['race_num'];
+    $racesponsor = $_POST['race_sponsor'];
     
     $own = 1;
     
@@ -161,44 +164,42 @@ function addDbRecord()
     $stmt->bindParam(':spon', $racesponsor);
    
     
-    $stmt->execute();
+    $flag = $stmt->execute();
     
     
 
-    if ($stmt === TRUE)
-    {
-        $last_id = $stmt->lastInsertId();
-    }
-    else
-    {
-            print_r($db->errorInfo());
-    }
+//    if ($flag)
+//    {
+//        $last_id = $stmt->lastInsertId();
+//    }
+//    else
+//    {
+//            print_r($db->errorInfo());
+//    }
 
   //take care of primary id
     if($primary == 1)
     {
          $stmt = "UPDATE `cars` SET primary_car_id = $last_id where id=$last_id";
          $stmt = $db->prepare($sql);
-         $stmt->execute();
+         $flag= $stmt->execute();
     }
-    
-    if ($stmt === TRUE)
-    {
-        
-        $last_id = $stmt->lastInsertId();
-    }
-    else
-    {
-        print_r($db->errorInfo());
-    }
+//    
+//    if ($flag)
+//    {
+//        
+//        $last_id = $stmt->lastInsertId();
+//    }
+//    else
+//    {
+//       // print_r($db->errorInfo());
+//    }
     
   //take care of friends
     
   //take care of locations
     
-
-    
-    
+  //header("Location:cheat.php");
     
 }
 
@@ -253,7 +254,4 @@ function getAllDbLocations()
     
     return $items;
 }
-
-
-?>
 
