@@ -23,7 +23,9 @@ function checkValidLen($str,$len)
 {
     $flag = false;
     if(strlen ($str) >= $len )
+    {
         $flag= true;
+    }
        
    return $flag;
 }
